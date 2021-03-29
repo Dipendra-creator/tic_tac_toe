@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/Components/RoundedBtn.dart';
 import 'package:tic_tac_toe/Constants/o.dart';
 import 'package:tic_tac_toe/Constants/x.dart';
+import 'package:tic_tac_toe/services/board.dart';
+import 'package:tic_tac_toe/services/provider.dart';
 import 'package:tic_tac_toe/Screens/single_player.dart';
 import 'package:tic_tac_toe/theme/theme.dart';
 
@@ -13,12 +15,17 @@ class PickSide extends StatefulWidget {
 }
 
 class _PickSideState extends State<PickSide> {
+
+  final boardService = locator<BoardService>();
+
   String groupValue = 'X';
+
   void setGroupvalue(value) {
     setState(() {
       groupValue = value;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,6 +109,14 @@ class _PickSideState extends State<PickSide> {
                   Container(
                     child: CopBtn(
                       onTap: (){
+                        boardService.resetBoard();
+                        boardService.setStart(groupValue);
+
+                        if (groupValue == 'O') {
+                          boardService.player$.add("X");
+                          boardService.botMove();
+                        }
+
                         Navigator.push(
                           context,
                           CupertinoPageRoute(

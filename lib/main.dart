@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tic_tac_toe/Screens/pick_side.dart';
+import 'package:tic_tac_toe/services/provider.dart';
 import 'Screens/single_player.dart';
 import 'Screens/welcome_page.dart';
 import 'Screens/with_a_friend.dart';
 
 void main() {
+  setupLocator();
   runApp(MyApp());
 }
 
